@@ -40,8 +40,8 @@ DATABASES = {
 - API - `http://127.0.0.1:8000/api`
 
 ###### Методы API:
-GET /api/tasks - получть список всех задач
-GET /api/tasks/{id} - получть одну конкретную задачу
-POST /api/tasks - создать задачу
-PUT (или PATCH) /api/tasks/{id} - отредактировать существующую задачу
-DELETE /api/tasks/{id} - удалить одну задачу
+- GET /api/tasks - получть список всех задач
+- GET /api/tasks/{id} - получть одну конкретную задачу
+- POST /api/tasks - создать задачу
+- PUT (или PATCH) /api/tasks/{id} - отредактировать существующую задачу
+- DELETE /api/tasks/{id} - удалить одну задачу
