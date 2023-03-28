@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container pt-2">
+    <h5>Обновление задачи</h5>
+</div>
+<div class="container pt-2">
+    <form method="post">{% csrf_token %}
+        <div class="mb-3">
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">Имя</span>
+                <input type="text" class="form-control" placeholder="Введите имя" aria-label="Имя" aria-describedby="basic-addon1" name="name" id="id_name" value="{{ form.name.value }}">
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon2">Дата окончания</span>
+                <input type="date" name="dead_line" id="id_dead_line" class="form-control form-control-sm" value='{{ object.dead_line|date:"Y-m-d" }}' aria-describedby="basic-addon2">
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon3">Родительская задача</span>
+                <select class="form-select" id="id_parent_task" name="parent_task" aria-describedby="basic-addon3">
+                    {% if object.parent_task %}
+                        <option selected value="{{ object.parent_task.id }}">{{ object.parent_task.name }}</option>
+                        <option value="">Нет задач</option>
+                    {% else %}
+                        <option selected value="">Нет задач</option>
+                    {% endif %}
+                </select>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon4">Исполнитель</span>
+                <select class="form-select" id="id_user" name="user" aria-describedby="basic-addon4">
+                    {% if object.user %}
+                        <option selected value="{{ object.user.id }}">{{ object.user.username }}</option>
+                        <option value="">Пользователь не выбран</option>
+                    {% else %}
+                        <option selected value="">Пользователь не выбран</option>
+                    {% endif %}
+                    {% for user_ in users %}
+                        <option value="{{ user_.id }}">{{ user_.username }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon5">Статус</span>
+                <select class="form-select" id="id_status" name="status" aria-describedby="basic-addon5">
+                    {% if object.status %}
+                        <option selected value="{{ object.status.id }}">{{ object.status.status }}</option>
+                        <option value="">--------</option>
+                    {% else %}
+                        <option selected value="">--------</option>
+                    {% endif %}
+                    {% for item_ in statuses %}
+                        <option value="{{ item_.id }}">{{ item_.status }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon6">Спринт</span>
+                <select class="form-select" id="id_sprint" name="sprint" aria-describedby="basic-addon6">
+                    {% if object.sprint %}
+                        <option selected value="{{ object.sprint.id }}">{{ object.sprint.name }}</option>
+                        <option value="">--------</option>
+                    {% else %}
+                        <option value="">--------</option>
+                    {% endif %}
+                    {% for item_ in sprints %}
+                        <option value="{{ item_.id }}">{{ item_.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="btn-group" role="group" aria-label="Группа кнопок по умолчанию">
+                <button type="submit" class="btn btn-outline-success" value="Save">Сохранить</button>
+                <button type="reset" class="btn btn-outline-warning" value="Reset">Сброс</button>
+                <a class="btn btn-outline-danger" href="../tasklist/">Отмена</a>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

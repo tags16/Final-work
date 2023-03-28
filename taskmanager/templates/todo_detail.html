@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container pt-2">
+    <h5>Просмотр задачи</h5>
+</div>
+<div class="container pt-2">
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">Имя</span>
+        <input type="text" class="form-control" placeholder="{{ object.name }}" aria-label="Имя" aria-describedby="basic-addon1" id="disabledInput" disabled>
+    </div>
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon2">Дата окончания</span>
+        <input type="date" name="dead_line" id="id_dead_line" class="form-control form-control-sm" value='{{ object.dead_line|date:"Y-m-d" }}' aria-describedby="basic-addon2" disabled>
+    </div>
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon3">Дата создания</span>
+        <input type="datetime-local" name="created" id="id_created" class="form-control form-control-sm" value='{{ object.created|date:"Y-m-d H:i" }}' aria-describedby="basic-addon3" disabled>
+    </div>
+    {% if object.complete_time %}
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon4">Дата завершения</span>
+        <input type="datetime-local" name="complete_time" id="id_complete_time" class="form-control form-control-sm" value='{{ object.complete_time|date:"Y-m-d H:i" }}' aria-describedby="basic-addon4" disabled>
+    </div>
+    {% endif %}
+    {% if object.parent_task %}
+        <div class="mb-3 pt-1">
+            <label class="form-lable" for="{{ object.parent_task.id_parent_task }}">Родительская задача</label>
+            <p>{{ object.parent_task.name }}</p>
+        </div>
+    {% endif %}
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">Исполнитель</span>
+        <input type="text" class="form-control" placeholder="{{ object.user.username }}" aria-label="Исполнитель" aria-describedby="basic-addon1" id="disabledInput" disabled>
+    </div>
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">Статус</span>
+        <input type="text" class="form-control" placeholder="{{ object.status.status }}" aria-label="Исполнитель" aria-describedby="basic-addon1" id="disabledInput" disabled>
+    </div>
+        <div class="btn-group py-5" role="group">
+            <a class="btn btn-outline-danger" href="../taskdelete/{{ object.id }}">Удалить</a>
+            <a class="btn btn-outline-warning" href="../taskupdate/{{ object.id }}">Редактировать</a>
+            <a class="btn btn-outline-success" href="../tasklist/">Сброс</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

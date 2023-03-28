@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container pt-2">
+    <h5>Создать спринт</h5>
+</div>
+<div class="container pt-2">
+    <form method="post">{% csrf_token %}
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1">Имя</span>
+            <input type="text" class="form-control" placeholder="Введите имя" aria-label="Имя" aria-describedby="basic-addon1" name="name" id="id_name">
+        </div>
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon2">Дата окончания</span>
+            <input type="date" value="now" name="dead_line" id="id_dead_line" class="form-control form-control-sm" aria-describedby="basic-addon2">
+        </div>
+        <div class="mb-2 pt-2">
+            <label class="form-lable" for="{{ form.project.id_for_label }}">Проект</label>
+            <select class="form-select" id="id_project" name="project">
+                <option selected value="">--------</option>
+                {% for project_ in projects %}
+                    <option value="{{ project_.id }}">{{ project_.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="btn-group" role="group" aria-label="Группа кнопок по умолчанию">
+            <button type="submit" class="btn btn-outline-success" value="Save">Сохранить</button>
+            <button type="reset" class="btn btn-outline-warning" value="Reset">Сброс</button>
+            <a class="btn btn-outline-danger" href="../projectlist/">Отмена</a>
+        </div>
+    </form>
+    <script>
+        document.getElementById('id_dead_line').valueAsDate = new Date();
+    </script>
+</div>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container pt-2">
+    <h5>Обновление проекта</h5>
+</div>
+<div class="container pt-2">
+    <form method="post">{% csrf_token %}
+        <div class="mb-3">
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">Имя</span>
+                <input type="text" class="form-control" placeholder="Введите имя проекта" aria-label="Имя" aria-describedby="basic-addon1" id="id_name" value="{{ form.name.value }}">
+            </div>
+            <div class="btn-group py-5" role="group">
+                <input class="btn btn-outline-success" type="submit" value="Обновить"></input>
+                <input class="btn btn-outline-warning" type="reset" value="Сброс"></input>
+                <a class="btn btn-outline-danger" href="../projectlist/">Отмена</a>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

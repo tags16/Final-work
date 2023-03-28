@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container pt-2">
+    <h5>Обновление спринта</h5>
+</div>
+<div class="container pt-2">
+    <form method="post">{% csrf_token %}
+        <div class="mb-3">
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">Имя</span>
+                <input type="text" class="form-control" placeholder="{{ object.name }}" aria-label="Имя" aria-describedby="basic-addon1" id="id_name" value="{{ form.name.value }}">
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon2">Дата окончания</span>
+                <input type="date" name="dead_line" id="id_dead_line" class="form-control form-control-sm" value='{{ object.dead_line|date:"Y-m-d" }}' aria-describedby="basic-addon2">
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon3">Дата создания</span>
+                <input type="datetime-local" name="created" id="id_created" class="form-control form-control-sm" value='{{ object.created|date:"Y-m-d H:i" }}' aria-describedby="basic-addon3">
+            </div>
+            <div class="form-check form-switch pt-1">
+                <input class="form-check-input" type="checkbox" name="is_active" id="id_is_active" checked>
+                <label class="form-lable" for="{{ form.is_active.id_for_label }}">Активность спринта</label>
+            </div>
+            <div class="mb-3 pt-1">
+                <label class="form-lable" for="{{ object.project.id_for_label }}">Проект</label>
+                <select class="form-select" id="id_project" name="project">
+                    {% if object.project %}
+                        <option selected value="{{ object.project.id }}">{{ object.project.name }}</option>
+                        <option value="">--------</option>
+                    {% else %}
+                        <option seletced value="">--------</option>
+                    {% endif %}
+                    {% for item_ in projects %}
+                        <option value="{{ item_.id }}">{{ item_.name }}</option>
+                    {% empty %}
+                        <option value="">No projects in DB</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="btn-group py-5" role="group">
+                <input class="btn btn-outline-success" type="submit" value="Обновить"></input>
+                <input class="btn btn-outline-warning" type="reset" value="Сброс"></input>
+                <a class="btn btn-outline-danger" href="../sprintlist/">Отмена</a>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
